@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.net.URL;
 import java.util.Scanner;
 
 public class DataMiningProject {
@@ -41,9 +43,9 @@ public class DataMiningProject {
 
 	private void init() {
 		System.out.println("============ Data Mining Project =================");
-		trainingDataArray = new double[333][9];
+		trainingDataArray = new double[334][9];
 		newInstances = new double[167][9];
-		DistancesElementArray = new Element[333];
+		DistancesElementArray = new Element[334];
 		minKValues = new minKValuesClass[60];   //Test edildi ve en iyi accuracy, k sayısını 60 seçerek elde edildi.
 		for(int i = 0 ; i < minKValues.length ; i ++) {
 			minKValues[i] = new minKValuesClass();
@@ -56,8 +58,9 @@ public class DataMiningProject {
 		Scanner scanIn = null;
 		int Rowc = 0;
 		String inputLine = "";
-		String fileLocation = "/home/kadir/Desktop/GraduateAdmissions/Admission_Predict_Ver1.1.csv";
-		
+		URL url = getClass().getResource("Admission_Predict_Ver1.1.csv");
+		File file = new File(url.getPath());
+		String fileLocation = file.getAbsolutePath();	
 		try {
 			scanIn = new Scanner(new BufferedReader(new FileReader(fileLocation)));
 			String headerLine = scanIn.nextLine();
@@ -79,13 +82,17 @@ public class DataMiningProject {
 		Scanner sc = null;
 		int Rowc = 0;
 		String inputLine = "";
-		String fileLocation = "/home/kadir/eclipse-workspace/DataMining/bin/UntitledDocument1.csv";	
+		URL url = getClass().getResource("UntitledDocument1.csv");
+		File file = new File(url.getPath());
+		String fileLocation = file.getAbsolutePath();	
 		try {
 			sc = new Scanner(new BufferedReader(new FileReader(fileLocation)));
 			String headerLine = sc.nextLine();
 			while(sc.hasNextLine()) {
 				inputLine = sc.nextLine();
 				String[] inArray = inputLine.split(",");
+				System.out.println(inArray.length);
+				System.out.println(newInstances.length);
 				for(int x = 0; x < inArray.length; x++) {
 					newInstances[Rowc][x] = Double.parseDouble(inArray[x]);
 				}
